@@ -9,12 +9,11 @@ export function makeServer({ environment = "development" } = {}) {
             owner: Model.extend({
                 dog: belongsTo()
             }),
-
             dog: Model.extend({
                 owner: belongsTo()
             })
-
         },
+
         serializers: {
             application: Serializer.extend({
                 embed: false,
@@ -24,9 +23,9 @@ export function makeServer({ environment = "development" } = {}) {
 
         seeds(server) {
             const ownerData = [
-                { id: uuidv4(), name: "Alice", age: 30 },
-                { id: uuidv4(), name: "Bob", age: 25 },
-                { id: uuidv4(), name: "Jerry", age: 25 },
+                { id: uuidv4(), name: "Alice", exp: 10 },
+                { id: uuidv4(), name: "Bob", exp: 5 },
+                { id: uuidv4(), name: "Jerry", exp: 3 },
             ];
             const dogData = [
                 { id: uuidv4(), name: "Marshmallow", food: "apples", img: "https://images.dog.ceo/breeds/terrier-irish/n02093991_1315.jpg" },

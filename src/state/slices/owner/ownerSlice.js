@@ -22,7 +22,7 @@ const ownerSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addMatcher(
-                (action) => action.type.endsWith('/fulfilled'),
+                (action) => action.type.endsWith('/fetchOwners/fulfilled'),
                 (state, action) => {
                     state.owners = action.payload.owners;
                     state.loading = false;
@@ -30,28 +30,13 @@ const ownerSlice = createSlice({
                 }
             )
             .addMatcher(
-                (action) => action.type.endsWith('/rejected'),
+                (action) => action.type.endsWith('/fethcOwners/rejected'),
                 (state, action) => {
                     state.owners = [];
                     state.loading = false;
                     state.error = action.error.message;
                 }
             );
-
-        // .addCase(fetchOwners.pending, (state) => {
-        //     state.loading = true;
-        //     state.error = null;
-        // })
-        // .addCase(fetchOwners.fulfilled, (state, action) => {
-        //     state.owners = action.payload.owners;
-        //     state.loading = false;
-        //     state.error = null;
-        // })
-        // .addCase(fetchOwners.rejected, (state, action) => {
-        //     state.owners = [];
-        //     state.loading = false;
-        //     state.error = action.error.message;
-        // });
     },
 });
 

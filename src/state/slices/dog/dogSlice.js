@@ -22,22 +22,21 @@ const dogSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addMatcher(
-                (action) => action.type.endsWith('/fulfilled'),
+                (action) => action.type.endsWith('/fetchDogById/fulfilled'),
                 (state, action) => {
-                    state.dogs = action.payload.dogs;
+                    state.dogs = action.payload;
                     state.loading = false;
                     state.error = null;
                 }
             )
             .addMatcher(
-                (action) => action.type.endsWith('/rejected'),
+                (action) => action.type.endsWith('/fetchDogById/rejected'),
                 (state, action) => {
                     state.dogs = {};
                     state.loading = false;
                     state.error = action.error.message;
                 }
             );
-
     },
 });
 
