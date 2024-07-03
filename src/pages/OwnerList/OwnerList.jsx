@@ -1,14 +1,18 @@
-import React from 'react'
+import { useState, useEffect } from 'react';
 import List from '../../components/List/List';
-import {useSelector} from 'react-redux';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchDog } from '../../state/slices/dog/dogSlice';
+import DetailModal from '../DetailModal/DetailModal';
 
 export default function OwnerList() {
+    const dispatch = useDispatch();
     const ownerList = useSelector((state) => state.owner.owners);
+    const currentDogToView = useSelector((state) => state.dog.dogs);
+    const [detailModalOpen, setDetailModalOpen] = useState(false);
 
-    const handleViewDetails = (ownerId) => {
-        console.log("View More Called")
-
+    const handleViewDetails = (dogId) => {
+        dispatch(fetchDog(dogId));
+        
     }   
     const handleEditOwner = (ownerId) => {
         console.log("Edit Called")
@@ -20,21 +24,28 @@ export default function OwnerList() {
 
     const handleBtnClick = (event) => {
         const btnType = event.target.textContent;
-        const ownerId = event.target.value;
+        const btnValue = event.target.value;
         switch (btnType) {
-            case "More":
-                handleViewDetails(ownerId)
+            case "Details":
+                handleViewDetails(btnValue)
                 break;
             case "Edit":
-                handleEditOwner(ownerId)
+                handleEditOwner(btnValue)
               break;
-            case "Delete":
-                handleDeleteOwner(ownerId)
+            case "X":
+                handleDeleteOwner(btnValue)
               break;
             default:
           }
-
     }
+
+    const handleCloseDetailModal = () => {
+        setDetailModalOpen(false);
+    };
+
+    useEffect(() => {
+        currentDogToView.dog && setDetailModalOpen(true);
+    }, [currentDogToView])
 
     return (
         <>
@@ -46,6 +57,14 @@ export default function OwnerList() {
                 />
                 :null
             }
+            {detailModalOpen ?
+                <DetailModal 
+                    isOpen={detailModalOpen}
+                    handleCloseDetailModal={handleCloseDetailModal}
+                />
+                : null
+            }
+              
         </>
     )
 }

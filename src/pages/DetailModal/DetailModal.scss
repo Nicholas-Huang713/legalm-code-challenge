@@ -1,0 +1,19 @@
+.modal-content-wrapper {
+    overflow-y: auto;
+}
+
+.modal-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1em;
+}
+
+.modal-spacing {
+    margin-right: 2em;
+}
+
+.modal-image {
+    max-width: 50%;
+}

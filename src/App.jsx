@@ -7,10 +7,8 @@ import OwnerList from './pages/OwnerList/OwnerList';
 function App() {
   const dispatch = useDispatch();
 
-
   useEffect(() => {
     dispatch(fetchOwners());
-    
   }, []);
 
   return (
@@ -18,7 +16,10 @@ function App() {
       <header>
         <h1>Dog Adoption</h1>
       </header>
-      <OwnerList />
+      <main>
+        <OwnerList />
+      </main>
+
 
     </div>
     
