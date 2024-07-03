@@ -1,4 +1,3 @@
-// src/mirage/index.js
 import { createServer, Model, belongsTo, Serializer } from 'miragejs';
 
 export function makeServer({ environment = "development" } = {}) {
