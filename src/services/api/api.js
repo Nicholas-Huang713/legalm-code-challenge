@@ -11,7 +11,6 @@ export const fetchSingleDogFromApi = async (dogId) => {
     if (!response.ok) {
         throw new Error('Failed to fetch dogs');
     }
-    console.log(response.json());
     return response.json();
 };
 
