@@ -1,31 +1,36 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import axios from 'axios';
 import {useSelector, useDispatch} from 'react-redux';
+import { fetchOwners } from './state/slices/owner/ownerSlice';
 
 function App() {
+  const dispatch = useDispatch();
   const [owners, setOwners] = useState([])
   const [dogs, setDogs] = useState([])
-  const ownerList = useSelector((state) => state.owner.value);
+  const ownerList = useSelector((state) => state.owner.owners);
 
-console.log('ownerList', ownerList)
   useEffect(() => {
-    axios.get('/api/owners')
-      // .then(response => response.json())
-      .then(data => {
-        setOwners(data.owners)
-        console.log('owner response',data);
-      });
+    dispatch(fetchOwners());
+    
   }, []);
-
-
 
   return (
     <>
-      Hello For Now
-  
+    <header>
+      <h1>Dog Adoption</h1>
+    </header>
+
+    <ul>
+     {ownerList.length > 0 ? 
+        ownerList.map((owner) => (
+        <li key={owner.id}>{owner.name}</li>
+        ))
+      : null
+      }
+    </ul>
     </>
+    
   )
 }
 
-export default App
+export default App;
