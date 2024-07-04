@@ -12,7 +12,6 @@ export default function OwnerList() {
 
     const handleViewDetails = (dogId) => {
         dispatch(fetchDog(dogId));
-        
     }   
     const handleEditOwner = (ownerId) => {
         console.log("Edit Called")
@@ -52,7 +51,6 @@ export default function OwnerList() {
             {ownerList.length > 0 ?
                 <List 
                     list={ownerList} 
-                    showBtns={true} 
                     handleBtnClick={handleBtnClick}
                 />
                 :null
