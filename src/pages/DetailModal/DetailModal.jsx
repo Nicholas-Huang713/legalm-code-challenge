@@ -9,22 +9,22 @@ export default function DetailModal({isOpen, handleCloseDetailModal}) {
   return (
     <Modal isOpen={isOpen} onClose={handleCloseDetailModal}>
         {dog.name && owners.length > 0 ? 
-        <div className='modal-content-wrapper'>
-            <header>
-                <h2>{dog.name}</h2>
-            </header>
-            <div className='modal-section'>
-                <div className='modal-spacing'><strong>Owner:</strong> {owners[0].name}</div>
-                <div><strong>Exp:</strong> {owners[0].exp}yrs</div>
+            <div className='modal-content-wrapper'>
+                <header>
+                    <h2>{dog.name}</h2>
+                </header>
+                <div className='modal-section'>
+                    <div className='modal-spacing'><strong>Owner:</strong> {owners[0].name}</div>
+                    <div><strong>Exp:</strong> {owners[0].exp}yrs</div>
+                </div>
+                <div>
+                    <img src={dog.img} className='modal-image'/>
+                </div>
+                <div>
+                <strong>Favorite Food:</strong> {dog.food}
+                </div>
             </div>
-            <div>
-                <img src={dog.img} className='modal-image'/>
-            </div>
-            <div>
-            <strong>Favorite Food:</strong> {dog.food}
-            </div>
-        </div>
-            : null
+            : <>No data to display</>
         }
 
     </Modal>

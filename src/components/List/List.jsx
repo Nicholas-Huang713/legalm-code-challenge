@@ -1,7 +1,7 @@
 import Button from '../Button/Button';
 import './List.scss';
 
-export default function List({list, showBtns, handleBtnClick}) {
+export default function List({list, handleBtnClick}) {
 
   return (
     <div className='list-container'>
@@ -16,20 +16,14 @@ export default function List({list, showBtns, handleBtnClick}) {
                             <div>
                                 Exp: {item.exp}yrs 
                             </div>
-                            {showBtns ?
-                                <div>
-                                    <Button btnText="X" handleClick={handleBtnClick} value={item.id} />
-                                </div>
-                                : null
-                            }
-                        </div>
-                        {showBtns ? 
-                            <div className='list-btn-wrapper'>
-                                <Button btnText="Details" handleClick={handleBtnClick} value={item.dogId} />
-                                <Button btnText="Edit" handleClick={handleBtnClick} value={item.id} />
+                            <div>
+                                <Button btnText="X" handleClick={handleBtnClick} value={item.id} />
                             </div>
-                            : null
-                        }
+                        </div>
+                        <div className='list-btn-wrapper'>
+                            <Button btnText="Details" handleClick={handleBtnClick} value={item.dogId} />
+                            <Button btnText="Edit" handleClick={handleBtnClick} value={item.id} />
+                        </div>
                     </li>
                 ))
                 : <div>Adopt a Dog</div>
