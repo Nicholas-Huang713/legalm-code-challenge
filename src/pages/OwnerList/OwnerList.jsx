@@ -7,6 +7,7 @@ import Button from "../../components/Button/Button";
 import NewOwnerModal from "./../NewOwnerModal/NewOwnerModal";
 import { fetchOwners, deleteOwner } from "../../state/slices/owner/ownerSlice";
 import EditOwnerModal from "../EditOwnerModal/EditOwnerModal";
+import FilterButton from "../../components/FilterButton/FilterButton";
 
 export default function OwnerList() {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ export default function OwnerList() {
   const [newOwnerModalOpen, setNewOwnerModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [currentModalType, setCurrentModalType] = useState("");
+  const [currentOwnerList, setCurrentOwnerList] = useState(0);
 
   const handleViewDetails = async (dogId) => {
     await dispatch(fetchDog(dogId));
@@ -63,6 +65,17 @@ export default function OwnerList() {
     setCurrentModalType("");
   };
 
+  const filterListByExp = (filterOption) => {
+    if (filterOption === "none") {
+      setCurrentOwnerList(ownerList);
+    } else {
+      const filteredList = ownerList.filter(
+        (owner) => owner.exp == filterOption
+      );
+      setCurrentOwnerList(filteredList);
+    }
+  };
+
   useEffect(() => {
     if (currentModalType === "") return;
     if (currentModalType === "detail") setDetailModalOpen(true);
@@ -73,15 +86,19 @@ export default function OwnerList() {
     dispatch(fetchOwners());
   }, []);
 
+  useEffect(() => {
+    setCurrentOwnerList(ownerList);
+  }, [ownerList]);
+
   return (
     <>
       <Button btnText="Adopt" handleClick={() => setNewOwnerModalOpen(true)} />
-      <Button btnText="Filter" handleClick={() => setNewOwnerModalOpen(true)} />
-      {ownerList.length > 0 ? (
-        <>
-          <List list={ownerList} handleBtnClick={handleBtnClick} />
-        </>
-      ) : null}
+      <FilterButton setFilter={filterListByExp} />
+      {currentOwnerList.length > 0 ? (
+        <List list={currentOwnerList} handleBtnClick={handleBtnClick} />
+      ) : (
+        <div style={{ marginTop: "10px" }}>No Owners To Display</div>
+      )}
       {detailModalOpen ? (
         <DetailModal
           isOpen={detailModalOpen}

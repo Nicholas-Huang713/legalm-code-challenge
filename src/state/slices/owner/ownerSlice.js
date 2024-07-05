@@ -64,4 +64,6 @@ const ownerSlice = createSlice({
             )
     },
 });
+
+// export const { } = ownerSlice.actions;
 export default ownerSlice.reducer;
