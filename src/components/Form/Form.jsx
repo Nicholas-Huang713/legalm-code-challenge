@@ -1,19 +1,20 @@
 import { useState, useEffect } from "react";
 import { getRandomDog } from "../../constants/randomDogInfo";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import "./Form.scss";
 
+const initialFormData = {
+  name: "",
+  exp: 0,
+};
+const initialDogData = {
+  img: "",
+  name: "",
+  food: "",
+};
+
 const Form = ({ isEditMode, sendDataToServer, handleCloseForm }) => {
-  const initialFormData = {
-    name: "",
-    exp: 0,
-  };
-  const initialDogData = {
-    img: "",
-    name: "",
-    food: "",
-  };
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setValErrors] = useState({});
   const [ownedDog, setOwnedDog] = useState(initialDogData);
