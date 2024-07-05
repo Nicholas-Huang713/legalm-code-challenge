@@ -30,7 +30,7 @@ export default function List({ list, handleBtnClick }) {
                 <Button
                   btnText="Edit"
                   handleClick={handleBtnClick}
-                  value={item.id}
+                  value={item.dogId}
                 />
               </div>
             </li>

@@ -66,7 +66,6 @@ export function makeServer({ environment = "development" } = {}) {
             });
 
             this.post("/owners/new", (schema, req) => {
-                console.log("new owner api called")
                 const ownerData = JSON.parse(req.requestBody);
                 const { dog, owner } = ownerData;
                 const ownerDataWithId = { id: uuidv4(), ...owner };
@@ -82,6 +81,13 @@ export function makeServer({ environment = "development" } = {}) {
             this.get("/dogs/:id", (schema, req) => {
                 const id = req.params.id;
                 return schema.dogs.find(id);
+            });
+
+            this.put('/owners/edit/', (schema, request) => {
+                let ownerData = JSON.parse(request.requestBody);
+                const ownerToUpdate = schema.owners.find(ownerData.owner.id);
+                ownerToUpdate.update(ownerData.owner);
+                return schema.owners.all();
             });
         },
     });
