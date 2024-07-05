@@ -1,16 +1,13 @@
 import { useState, useEffect } from "react";
 import { getRandomDog } from "../../constants/randomDogInfo";
+import { useDispatch, useSelector } from "react-redux";
+
 import "./Form.scss";
 
-const Form = ({
-  isEditMode,
-  formValuesToEdit,
-  sendDataToServer,
-  handleCloseForm,
-}) => {
+const Form = ({ isEditMode, sendDataToServer, handleCloseForm }) => {
   const initialFormData = {
     name: "",
-    experience: 0,
+    exp: 0,
   };
   const initialDogData = {
     img: "",
@@ -18,10 +15,11 @@ const Form = ({
     food: "",
   };
   const [formData, setFormData] = useState(initialFormData);
-  const [errors, setErrors] = useState({});
+  const [errors, setValErrors] = useState({});
   const [ownedDog, setOwnedDog] = useState(initialDogData);
   const [randomDog, setRandomDog] = useState(initialDogData);
   const [apiError, setApiError] = useState(null);
+  const currentDogWithOwnerInfo = useSelector((state) => state.dog.dogs);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,14 +34,14 @@ const Form = ({
     if (!formData.name) {
       errors.name = "Name is required";
     }
-    if (!formData.experience) {
-      errors.experience = "Experience is required";
+    if (!formData.exp) {
+      errors.exp = "Experience is required";
     }
     return errors;
   };
 
   const resetInitialInputs = () => {
-    setErrors({});
+    setValErrors({});
     setApiError(null);
     setFormData(initialFormData);
     setRandomDog(initialDogData);
@@ -54,12 +52,13 @@ const Form = ({
     e.preventDefault();
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
+      setValErrors(validationErrors);
     } else {
       const dataToSend = {
         dog: isEditMode ? ownedDog : randomDog,
         owner: formData,
       };
+      console.log(dataToSend);
       try {
         await sendDataToServer(dataToSend);
         resetInitialInputs();
@@ -71,18 +70,16 @@ const Form = ({
   };
 
   useEffect(() => {
-    if (isEditMode && formValuesToEdit) {
-      const { ownedDog, ownerData } = formValuesToEdit;
-      setFormData(ownerData);
-      setOwnedDog(ownedDog);
+    if (isEditMode && currentDogWithOwnerInfo.owners) {
+      const { dog, owners } = currentDogWithOwnerInfo;
+      setFormData(owners[0]);
+      setOwnedDog(dog);
     } else {
       const newRandomDog = getRandomDog();
       setRandomDog(newRandomDog);
     }
-    () => {
-      resetInitialInputs();
-    };
-  }, []);
+    return () => resetInitialInputs();
+  }, [currentDogWithOwnerInfo]);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -92,7 +89,7 @@ const Form = ({
       {apiError && <div className="form-error">{apiError}</div>}
       <div className="form-input-container">
         <div>
-          <label htmlFor="name">Name</label>
+          <label htmlFor="name">Name </label>
           <input
             type="text"
             id="name"
@@ -101,19 +98,23 @@ const Form = ({
             onChange={handleChange}
             className="form-input"
           />
-          {errors.name && <span style={{ color: "red" }}>{errors.name}</span>}
+          <div>
+            {errors.name && <span style={{ color: "red" }}>{errors.name}</span>}
+          </div>
         </div>
         <div>
-          <label htmlFor="experience">Yrs of Exp</label>
+          <label htmlFor="exp">Yrs of Exp </label>
           <input
             type="number"
-            id="experience"
-            name="experience"
-            value={formData.experience}
+            id="exp"
+            name="exp"
+            value={formData.exp}
             onChange={handleChange}
           />
-          {errors.experience && (
-            <span style={{ color: "red" }}>{errors.experience}</span>
+          {errors.exp && (
+            <div>
+              <span style={{ color: "red" }}>{errors.exp}</span>
+            </div>
           )}
         </div>
       </div>

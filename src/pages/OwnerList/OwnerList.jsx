@@ -6,22 +6,30 @@ import DetailModal from "../DetailModal/DetailModal";
 import Button from "../../components/Button/Button";
 import NewOwnerModal from "./../NewOwnerModal/NewOwnerModal";
 import { fetchOwners } from "../../state/slices/owner/ownerSlice";
+import EditOwnerModal from "../EditOwnerModal/EditOwnerModal";
 
 export default function OwnerList() {
   const dispatch = useDispatch();
   const ownerList = useSelector((state) => state.owner.owners);
-  const currentDogToView = useSelector((state) => state.dog.dogs);
+
   const [detailModalOpen, setDetailModalOpen] = useState(false);
   const [newOwnerModalOpen, setNewOwnerModalOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [currentModalType, setCurrentModalType] = useState("");
 
   const handleViewDetails = (dogId) => {
     dispatch(fetchDog(dogId));
+    setCurrentModalType("detail");
   };
-  const handleEditOwner = (ownerId) => {
-    console.log("Edit Called");
+
+  const handleOpenEditModal = (dogId) => {
+    dispatch(fetchDog(dogId));
+
+    setCurrentModalType("edit");
   };
+
   const handleDeleteOwner = (ownerId) => {
-    console.log("Delete Called");
+    console.log("Delete Called", ownerId);
   };
 
   const handleBtnClick = (event) => {
@@ -32,7 +40,7 @@ export default function OwnerList() {
         handleViewDetails(btnValue);
         break;
       case "Edit":
-        handleEditOwner(btnValue);
+        handleOpenEditModal(btnValue);
         break;
       case "X":
         handleDeleteOwner(btnValue);
@@ -41,17 +49,26 @@ export default function OwnerList() {
     }
   };
 
-  const handleCloseDetailModal = () => {
-    setDetailModalOpen(false);
+  const handleCloseNewOwnerModal = () => {
+    setNewOwnerModalOpen(false);
+    setCurrentModalType("");
   };
 
-  const handleOpenNewOwnerModal = () => setNewOwnerModalOpen(true);
+  const handleCloseEditOwnerModal = () => {
+    setEditModalOpen(false);
+    setCurrentModalType("");
+  };
 
-  const handleCloseNewOwnerModal = () => setNewOwnerModalOpen(false);
+  const handleCloseDetailModal = () => {
+    setDetailModalOpen(false);
+    setCurrentModalType("");
+  };
 
   useEffect(() => {
-    currentDogToView.dog && setDetailModalOpen(true);
-  }, [currentDogToView]);
+    if (currentModalType === "") return;
+    if (currentModalType === "detail") setDetailModalOpen(true);
+    else setEditModalOpen(true);
+  }, [currentModalType]);
 
   useEffect(() => {
     dispatch(fetchOwners());
@@ -61,7 +78,14 @@ export default function OwnerList() {
     <>
       {ownerList.length > 0 ? (
         <>
-          <Button btnText="Adopt" handleClick={handleOpenNewOwnerModal} />
+          <Button
+            btnText="Adopt"
+            handleClick={() => setNewOwnerModalOpen(true)}
+          />
+          <Button
+            btnText="Filter"
+            handleClick={() => setNewOwnerModalOpen(true)}
+          />
           <List list={ownerList} handleBtnClick={handleBtnClick} />
         </>
       ) : null}
@@ -75,6 +99,12 @@ export default function OwnerList() {
         <NewOwnerModal
           isOpen={newOwnerModalOpen}
           handleCloseNewOwnerModal={handleCloseNewOwnerModal}
+        />
+      ) : null}
+      {editModalOpen ? (
+        <EditOwnerModal
+          isOpen={editModalOpen}
+          handleCloseEditOwnerModal={handleCloseEditOwnerModal}
         />
       ) : null}
     </>

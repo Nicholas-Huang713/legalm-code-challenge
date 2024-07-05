@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchOwnersFromApi, addOwnerToAPi } from '../../../services/api/api';
+import { fetchOwnersFromApi, addOwnerToAPi, editOwnerInApi } from '../../../services/api/api';
 
 export const fetchOwners = createAsyncThunk('owner/fetchOwners', async () => {
     try {
@@ -10,10 +10,19 @@ export const fetchOwners = createAsyncThunk('owner/fetchOwners', async () => {
     }
 });
 
-export const addOwners = createAsyncThunk('owner/addOwners', async (owner) => {
+export const addOwner = createAsyncThunk('owner/addOwners', async (owner) => {
     try {
         const data = await addOwnerToAPi(owner);
-        console.log("ownerList in redux:", data)
+        return data;
+    } catch (error) {
+        throw new Error('Failed to fetch owners');
+    }
+});
+
+export const editOwner = createAsyncThunk('owner/editOwners', async (owner) => {
+    try {
+        const data = await editOwnerInApi(owner);
+        console.log("editted ownerList in redux:", data)
         return data;
     } catch (error) {
         throw new Error('Failed to fetch owners');
@@ -45,36 +54,6 @@ const ownerSlice = createSlice({
                     state.error = action.error.message;
                 }
             )
-
-        // .addCase(fetchOwners.pending, (state) => {
-        //     state.status = 'loading';
-        // })
-        // .addCase(fetchOwners.fulfilled, (state, action) => {
-        //     state.owners = action.payload.owners;
-        //     state.loading = false;
-        //     state.error = null;
-        // })
-        // .addCase(fetchOwners.rejected, (state, action) => {
-        //     state.owners = [];
-        //     state.loading = false;
-        //     state.error = action.error.message;
-        // })
-        // .addCase(addOwners.pending, (state) => {
-        //     state.status = 'loading';
-        // })
-        // .addCase(addOwners.fulfilled, (state, action) => {
-        //     state.owners = action.payload.owners;
-        //     state.loading = false;
-        //     state.error = null;
-        // })
-        // .addCase(addOwners.rejected, (state, action) => {
-        //     state.owners = [];
-        //     state.loading = false;
-        //     state.error = action.error.message;
-        // })
     },
 });
-
-// export const { updateOwners } = ownerSlice.actions;
-
 export default ownerSlice.reducer;
