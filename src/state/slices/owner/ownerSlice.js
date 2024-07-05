@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchOwnersFromApi, addOwnerToAPi, editOwnerInApi } from '../../../services/api/api';
+import { fetchOwnersFromApi, addOwnerToAPi, editOwnerInApi, deleteOwnerInApi } from '../../../services/api/api';
 
 export const fetchOwners = createAsyncThunk('owner/fetchOwners', async () => {
     try {
@@ -22,10 +22,18 @@ export const addOwner = createAsyncThunk('owner/addOwners', async (owner) => {
 export const editOwner = createAsyncThunk('owner/editOwners', async (owner) => {
     try {
         const data = await editOwnerInApi(owner);
-        console.log("editted ownerList in redux:", data)
         return data;
     } catch (error) {
         throw new Error('Failed to fetch owners');
+    }
+});
+
+export const deleteOwner = createAsyncThunk('owner/deleteOwners', async (ownerId) => {
+    try {
+        const data = await deleteOwnerInApi(ownerId);
+        return data;
+    } catch (error) {
+        throw new Error('Failed to delete owner');
     }
 });
 
