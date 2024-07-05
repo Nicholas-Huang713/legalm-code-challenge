@@ -5,7 +5,7 @@ import { fetchDog } from "../../state/slices/dog/dogSlice";
 import DetailModal from "../DetailModal/DetailModal";
 import Button from "../../components/Button/Button";
 import NewOwnerModal from "./../NewOwnerModal/NewOwnerModal";
-import { fetchOwners } from "../../state/slices/owner/ownerSlice";
+import { fetchOwners, deleteOwner } from "../../state/slices/owner/ownerSlice";
 import EditOwnerModal from "../EditOwnerModal/EditOwnerModal";
 
 export default function OwnerList() {
@@ -17,19 +17,18 @@ export default function OwnerList() {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [currentModalType, setCurrentModalType] = useState("");
 
-  const handleViewDetails = (dogId) => {
-    dispatch(fetchDog(dogId));
+  const handleViewDetails = async (dogId) => {
+    await dispatch(fetchDog(dogId));
     setCurrentModalType("detail");
   };
 
-  const handleOpenEditModal = (dogId) => {
-    dispatch(fetchDog(dogId));
-
+  const handleOpenEditModal = async (dogId) => {
+    await dispatch(fetchDog(dogId));
     setCurrentModalType("edit");
   };
 
-  const handleDeleteOwner = (ownerId) => {
-    console.log("Delete Called", ownerId);
+  const handleDeleteOwner = async (ownerId) => {
+    await dispatch(deleteOwner(ownerId));
   };
 
   const handleBtnClick = (event) => {
@@ -76,16 +75,10 @@ export default function OwnerList() {
 
   return (
     <>
+      <Button btnText="Adopt" handleClick={() => setNewOwnerModalOpen(true)} />
+      <Button btnText="Filter" handleClick={() => setNewOwnerModalOpen(true)} />
       {ownerList.length > 0 ? (
         <>
-          <Button
-            btnText="Adopt"
-            handleClick={() => setNewOwnerModalOpen(true)}
-          />
-          <Button
-            btnText="Filter"
-            handleClick={() => setNewOwnerModalOpen(true)}
-          />
           <List list={ownerList} handleBtnClick={handleBtnClick} />
         </>
       ) : null}

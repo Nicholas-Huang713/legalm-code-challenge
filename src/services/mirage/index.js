@@ -83,10 +83,16 @@ export function makeServer({ environment = "development" } = {}) {
                 return schema.dogs.find(id);
             });
 
-            this.put('/owners/edit/', (schema, request) => {
+            this.put("/owners/edit/", (schema, request) => {
                 let ownerData = JSON.parse(request.requestBody);
                 const ownerToUpdate = schema.owners.find(ownerData.owner.id);
                 ownerToUpdate.update(ownerData.owner);
+                return schema.owners.all();
+            });
+
+            this.delete("/owners/delete/:id", (schema, request) => {
+                let id = request.params.id;
+                schema.owners.find(id).destroy();
                 return schema.owners.all();
             });
         },
