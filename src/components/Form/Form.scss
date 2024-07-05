@@ -1,0 +1,28 @@
+.form-img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  max-height: 300px; // Adjust as needed to fit within the form
+  object-fit: contain;
+}
+
+.form-dog-info {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.form-error {
+  color: red;
+}
+
+.form-input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  div {
+    padding: 8px;
+  }
+}

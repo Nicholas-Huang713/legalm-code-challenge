@@ -1,5 +1,7 @@
-export default function Button({btnText, handleClick, value}) {
+export default function Button({ btnText, handleClick, value }) {
   return (
-    <button value={value} onClick={handleClick}>{btnText}</button>
-  )
+    <button value={value ? value : null} onClick={handleClick}>
+      {btnText}
+    </button>
+  );
 }
