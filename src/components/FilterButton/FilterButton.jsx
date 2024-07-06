@@ -12,9 +12,7 @@ export default function FilterButton({ setFilter }) {
     ));
   };
 
-  const handleChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
+  const handleChange = (event) => setSelectedOption(event.target.value);
 
   useEffect(() => {
     setFilter(selectedOption);

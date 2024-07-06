@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { getRandomDog } from "../../constants/randomDogInfo";
 import { useSelector } from "react-redux";
-
 import "./Form.scss";
 
 const initialFormData = {

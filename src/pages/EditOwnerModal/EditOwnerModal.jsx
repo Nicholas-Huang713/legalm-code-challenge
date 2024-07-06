@@ -1,6 +1,6 @@
 import Modal from "../../components/Modal/Modal";
 import Form from "../../components/Form/Form";
-import { editOwner } from "../../state/slices/owner/ownerSlice";
+import { editOwner } from "../../state/slices/owner/ownerThunks";
 import { useDispatch } from "react-redux";
 
 export default function EditOwnerModal({ isOpen, handleCloseEditOwnerModal }) {
