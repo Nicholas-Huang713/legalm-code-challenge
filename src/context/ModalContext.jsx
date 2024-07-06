@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { deleteOwner } from "../state/slices/owner/ownerThunks";
-import { fetchDog } from "../state/slices/dog/dogSlice";
+import { fetchDog } from "../state/slices/dog/dogThunks";
 export const ModalContext = createContext();
 
 export const ModalProvider = ({ children }) => {

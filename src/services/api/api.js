@@ -6,14 +6,6 @@ export const fetchOwnersFromApi = async () => {
     return response.json();
 };
 
-export const fetchSingleDogFromApi = async (dogId) => {
-    const response = await fetch(`/api/dogs/${dogId}`);
-    if (!response.ok) {
-        throw new Error("Failed to fetch dog");
-    }
-    return response.json();
-};
-
 export const addOwnerToAPi = async (owner) => {
     const response = await fetch(`/api/owners/new`, {
         method: "POST",
@@ -45,6 +37,14 @@ export const deleteOwnerInApi = async (ownerId) => {
     });
     if (!response.ok) {
         throw new Error("Failed to delete dog");
+    }
+    return response.json();
+};
+
+export const fetchSingleDogFromApi = async (dogId) => {
+    const response = await fetch(`/api/dogs/${dogId}`);
+    if (!response.ok) {
+        throw new Error("Failed to fetch dog");
     }
     return response.json();
 };
