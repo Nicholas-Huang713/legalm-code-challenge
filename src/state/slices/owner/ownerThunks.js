@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchOwnersFromApi, addOwnerToAPi, editOwnerInApi, deleteOwnerInApi } from '../../../services/api/api';
+import { fetchOwnersFromApi, addOwnerToApi, editOwnerInApi, deleteOwnerInApi } from '../../../services/api/api';
 
 export const fetchOwners = createAsyncThunk('owner/fetchOwners', async () => {
     try {
@@ -12,7 +12,7 @@ export const fetchOwners = createAsyncThunk('owner/fetchOwners', async () => {
 
 export const addOwner = createAsyncThunk('owner/addOwners', async (owner) => {
     try {
-        const data = await addOwnerToAPi(owner);
+        const data = await addOwnerToApi(owner);
         return data;
     } catch (error) {
         throw new Error('Failed to add owner');

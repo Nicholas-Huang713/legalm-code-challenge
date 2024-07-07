@@ -3,11 +3,11 @@ import Form from "../../components/Form/Form";
 import { addOwner } from "../../state/slices/owner/ownerThunks";
 import { useDispatch } from "react-redux";
 
-export default function NewOwnerModal({ isOpen, handleCloseNewOwnerModal }) {
+export default function NewOwnerModal({ handleCloseNewOwnerModal }) {
   const dispatch = useDispatch();
 
   return (
-    <Modal isOpen={isOpen} onClose={handleCloseNewOwnerModal}>
+    <Modal onClose={handleCloseNewOwnerModal}>
       <Form
         isEdit={false}
         sendDataToServer={(data) => dispatch(addOwner(data))}

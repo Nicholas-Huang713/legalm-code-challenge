@@ -16,22 +16,13 @@ export default function ModalWrapper() {
   return (
     <>
       {detailModalOpen ? (
-        <DetailModal
-          isOpen={detailModalOpen}
-          handleCloseDetailModal={handleCloseDetailModal}
-        />
+        <DetailModal handleCloseDetailModal={handleCloseDetailModal} />
       ) : null}
       {newOwnerModalOpen ? (
-        <NewOwnerModal
-          isOpen={newOwnerModalOpen}
-          handleCloseNewOwnerModal={handleCloseNewOwnerModal}
-        />
+        <NewOwnerModal handleCloseNewOwnerModal={handleCloseNewOwnerModal} />
       ) : null}
       {editModalOpen ? (
-        <EditOwnerModal
-          isOpen={editModalOpen}
-          handleCloseEditOwnerModal={handleCloseEditOwnerModal}
-        />
+        <EditOwnerModal handleCloseEditOwnerModal={handleCloseEditOwnerModal} />
       ) : null}
     </>
   );

@@ -15,11 +15,6 @@ describe("Modal component", () => {
     expect(screen.getByText("Children")).toBeInTheDocument();
   });
 
-  it("render Modal with false val", () => {
-    renderModal(false, mockOnClose);
-    expect(screen.queryByText("Children")).not.toBeInTheDocument();
-  });
-
   it("close btn calls mockOnClose", () => {
     renderModal(true, mockOnClose);
     const closeBtn = screen.getByText("X");

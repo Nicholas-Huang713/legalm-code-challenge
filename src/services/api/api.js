@@ -6,7 +6,7 @@ export const fetchOwnersFromApi = async () => {
     return response.json();
 };
 
-export const addOwnerToAPi = async (owner) => {
+export const addOwnerToApi = async (owner) => {
     const response = await fetch(`/api/owners/new`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
