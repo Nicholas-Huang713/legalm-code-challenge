@@ -1,0 +1,66 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`DetailModal component > renders modal with dog data 1`] = `
+<div>
+  <div
+    class="modal-backdrop"
+    data-testid="modal-backdrop"
+  >
+    <div
+      class="modal-content"
+    >
+      <button
+        class="close-btn"
+      >
+        X
+      </button>
+      <section
+        class="modal-content-main"
+      >
+        <div
+          class="modal-content-wrapper"
+        >
+          <header>
+            <h2>
+              peanut
+            </h2>
+          </header>
+          <div
+            class="modal-section"
+          >
+            <div
+              class="modal-spacing"
+            >
+              <strong>
+                Owner:
+              </strong>
+               
+              John Doe
+            </div>
+            <div>
+              <strong>
+                Exp:
+              </strong>
+               
+              3
+              yrs
+            </div>
+          </div>
+          <div>
+            <img
+              class="modal-image"
+            />
+          </div>
+          <div>
+            <strong>
+              Favorite Food:
+            </strong>
+             
+            pizza
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+`;

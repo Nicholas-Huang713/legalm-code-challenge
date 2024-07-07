@@ -1,0 +1,70 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`FilterButton Component > renders FilterButton and changes the filter 1`] = `
+<div>
+  <label
+    for="filter"
+  >
+    Filter by Exp 
+  </label>
+  <select
+    id="filter"
+  >
+    <option
+      value="none"
+    >
+      None
+    </option>
+    <option
+      value="1"
+    >
+      1
+    </option>
+    <option
+      value="2"
+    >
+      2
+    </option>
+    <option
+      value="3"
+    >
+      3
+    </option>
+    <option
+      value="4"
+    >
+      4
+    </option>
+    <option
+      value="5"
+    >
+      5
+    </option>
+    <option
+      value="6"
+    >
+      6
+    </option>
+    <option
+      value="7"
+    >
+      7
+    </option>
+    <option
+      value="8"
+    >
+      8
+    </option>
+    <option
+      value="9"
+    >
+      9
+    </option>
+    <option
+      value="10"
+    >
+      10
+    </option>
+  </select>
+</div>
+`;

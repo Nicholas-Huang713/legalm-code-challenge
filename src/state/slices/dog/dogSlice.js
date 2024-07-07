@@ -15,8 +15,6 @@ const dogSlice = createSlice({
                 (action) => action.type.endsWith("/fetchDogById/fulfilled"),
                 (state, action) => {
                     state.dogs = action.payload;
-                    state.loading = false;
-                    state.error = null;
                 }
             )
             .addMatcher(

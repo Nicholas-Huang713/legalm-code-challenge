@@ -61,7 +61,6 @@ const Form = ({
         dog: isEditMode ? ownedDog : randomDog,
         owner: formData,
       };
-      console.log(dataToSend);
       try {
         await sendDataToServer(dataToSend);
         resetInitialInputs();

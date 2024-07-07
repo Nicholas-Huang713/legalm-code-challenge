@@ -8,14 +8,16 @@ const mockOwners = [
 ];
 
 const onClickMock = vi.fn();
-const renderPopulatedList = () =>
-  render(<List list={mockOwners} handleBtnClick={onClickMock} />);
-const renderEmptyList = () =>
-  render(<List list={[]} handleBtnClick={onClickMock} />);
+const renderPopulatedList = () => {
+  return render(<List list={mockOwners} handleBtnClick={onClickMock} />);
+};
+const renderEmptyList = () => {
+  return render(<List list={[]} handleBtnClick={onClickMock} />);
+};
 
 describe("List component", () => {
   it("renders list component - populated list", () => {
-    renderPopulatedList();
+    const { container } = renderPopulatedList();
     const listItems = screen.getAllByRole("listitem");
     expect(listItems).toHaveLength(3);
     const detailsBtnList = screen.getAllByText("Details");
@@ -24,6 +26,7 @@ describe("List component", () => {
     expect(editBtnList).toHaveLength(3);
     expect(screen.getByText("Alice")).toBeInTheDocument();
     expect(screen.getByText("Exp: 10yrs")).toBeInTheDocument();
+    expect(container).toMatchSnapshot();
   });
 
   it("renders empty list message - empty list", () => {

@@ -2,45 +2,29 @@ import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
 import DetailModal from "./DetailModal";
-
 const thunkMiddleware = require("redux-thunk").thunk;
 const mockStore = configureMockStore([thunkMiddleware]);
 const mockCloseDetailModal = vi.fn();
+import {
+  emptyDogDataInStore,
+  dogDataInStore,
+  ownersList,
+} from "../../test/mocks/mockValues";
 
 let store;
 
 const initStoreNoDogData = () => {
   store = mockStore({
-    owner: {
-      owners: [
-        { id: 1, name: "John Doe", exp: 3, dogId: 1 },
-        { id: 2, name: "Jane Doe", exp: 5, dogId: 2 },
-      ],
-    },
-    dog: {
-      dogs: {
-        dog: {},
-        owners: [],
-      },
-    },
+    owner: ownersList,
+    dog: emptyDogDataInStore,
   });
   store.dispatch = vi.fn();
 };
 
 const initStoreWithDogData = () => {
   store = mockStore({
-    owner: {
-      owners: [
-        { id: 1, name: "John Doe", exp: 3, dogId: 1 },
-        { id: 2, name: "Jane Doe", exp: 5, dogId: 2 },
-      ],
-    },
-    dog: {
-      dogs: {
-        dog: { id: 1, name: "peanut", food: "pizza", ownerId: "1" },
-        owners: [{ id: 1, name: "John Doe", exp: 3, dogId: 1 }],
-      },
-    },
+    owner: ownersList,
+    dog: dogDataInStore,
   });
   store.dispatch = vi.fn();
 };
@@ -61,7 +45,7 @@ describe("DetailModal component", () => {
 
   it("renders modal with dog data", () => {
     initStoreWithDogData();
-    render(
+    const { container } = render(
       <Provider store={store}>
         <DetailModal
           isOpen={true}
@@ -71,5 +55,6 @@ describe("DetailModal component", () => {
     );
     expect(screen.getByText("peanut")).toBeInTheDocument();
     expect(screen.getByText("pizza")).toBeInTheDocument();
+    expect(container).toMatchSnapshot();
   });
 });

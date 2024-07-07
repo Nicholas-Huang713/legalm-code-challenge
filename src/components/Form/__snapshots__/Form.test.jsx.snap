@@ -1,0 +1,74 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Form Component > renders Form and submits data 1`] = `
+<div>
+  <form>
+    <header>
+      <h2>
+        Adopt a Dog
+      </h2>
+    </header>
+    <div
+      class="form-input-container"
+    >
+      <div>
+        <label
+          for="name"
+        >
+          Name 
+        </label>
+        <input
+          class="form-input"
+          id="name"
+          name="name"
+          type="text"
+          value="John Doe"
+        />
+        <div />
+      </div>
+      <div>
+        <label
+          for="exp"
+        >
+          Yrs of Exp 
+        </label>
+        <input
+          id="exp"
+          name="exp"
+          type="number"
+          value="5"
+        />
+      </div>
+    </div>
+    <div>
+      <img
+        class="form-img"
+        src="https://images.dog.ceo/breeds/mexicanhairless/n02113978_1069.jpg"
+      />
+    </div>
+    <div
+      class="form-dog-info"
+    >
+      <div>
+        <strong>
+          Name:
+        </strong>
+         
+        Charlie
+      </div>
+      <div>
+        <strong>
+          Favorite food:
+        </strong>
+         
+        peanuts
+      </div>
+    </div>
+    <button
+      type="submit"
+    >
+      Submit
+    </button>
+  </form>
+</div>
+`;

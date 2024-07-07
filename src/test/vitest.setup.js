@@ -1,4 +1,4 @@
-import { cleanup } from '@testing-library/react'
+import { cleanup, render } from '@testing-library/react'
 import '@testing-library/jest-dom/vitest'
 import { makeServer } from '../services/mirage';
 import dogReducer from '../state/slices/dog/dogSlice';
