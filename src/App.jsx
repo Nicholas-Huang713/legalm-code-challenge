@@ -1,5 +1,6 @@
 import "./App.scss";
 import OwnerList from "./pages/OwnerList/OwnerList";
+import { ModalProvider } from "./context/ModalContext";
 
 function App() {
   return (
@@ -8,7 +9,9 @@ function App() {
         <h1>Dog Adoption</h1>
       </header>
       <main>
-        <OwnerList />
+        <ModalProvider>
+          <OwnerList />
+        </ModalProvider>
       </main>
     </div>
   );

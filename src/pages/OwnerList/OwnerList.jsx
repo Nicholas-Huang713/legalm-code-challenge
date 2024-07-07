@@ -1,37 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import List from "../../components/List/List";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchDog } from "../../state/slices/dog/dogSlice";
-import DetailModal from "../DetailModal/DetailModal";
 import Button from "../../components/Button/Button";
-import NewOwnerModal from "./../NewOwnerModal/NewOwnerModal";
-import { fetchOwners, deleteOwner } from "../../state/slices/owner/ownerSlice";
-import EditOwnerModal from "../EditOwnerModal/EditOwnerModal";
+import { fetchOwners } from "../../state/slices/owner/ownerThunks";
 import FilterButton from "../../components/FilterButton/FilterButton";
+import { ModalContext } from "../../context/ModalContext";
+import ModalWrapper from "../ModalWrapper/ModalWrapper";
 
 export default function OwnerList() {
   const dispatch = useDispatch();
   const ownerList = useSelector((state) => state.owner.owners);
-
-  const [detailModalOpen, setDetailModalOpen] = useState(false);
-  const [newOwnerModalOpen, setNewOwnerModalOpen] = useState(false);
-  const [editModalOpen, setEditModalOpen] = useState(false);
-  const [currentModalType, setCurrentModalType] = useState("");
+  const {
+    handleViewDetails,
+    handleOpenEditModal,
+    handleDeleteOwner,
+    setNewOwnerModalOpen,
+  } = useContext(ModalContext);
   const [currentOwnerList, setCurrentOwnerList] = useState(0);
-
-  const handleViewDetails = async (dogId) => {
-    await dispatch(fetchDog(dogId));
-    setCurrentModalType("detail");
-  };
-
-  const handleOpenEditModal = async (dogId) => {
-    await dispatch(fetchDog(dogId));
-    setCurrentModalType("edit");
-  };
-
-  const handleDeleteOwner = async (ownerId) => {
-    await dispatch(deleteOwner(ownerId));
-  };
 
   const handleBtnClick = (event) => {
     const btnType = event.target.textContent;
@@ -50,21 +35,6 @@ export default function OwnerList() {
     }
   };
 
-  const handleCloseNewOwnerModal = () => {
-    setNewOwnerModalOpen(false);
-    setCurrentModalType("");
-  };
-
-  const handleCloseEditOwnerModal = () => {
-    setEditModalOpen(false);
-    setCurrentModalType("");
-  };
-
-  const handleCloseDetailModal = () => {
-    setDetailModalOpen(false);
-    setCurrentModalType("");
-  };
-
   const filterListByExp = (filterOption) => {
     if (filterOption === "none") {
       setCurrentOwnerList(ownerList);
@@ -75,12 +45,6 @@ export default function OwnerList() {
       setCurrentOwnerList(filteredList);
     }
   };
-
-  useEffect(() => {
-    if (currentModalType === "") return;
-    if (currentModalType === "detail") setDetailModalOpen(true);
-    else setEditModalOpen(true);
-  }, [currentModalType]);
 
   useEffect(() => {
     dispatch(fetchOwners());
@@ -99,24 +63,7 @@ export default function OwnerList() {
       ) : (
         <div style={{ marginTop: "10px" }}>No Owners To Display</div>
       )}
-      {detailModalOpen ? (
-        <DetailModal
-          isOpen={detailModalOpen}
-          handleCloseDetailModal={handleCloseDetailModal}
-        />
-      ) : null}
-      {newOwnerModalOpen ? (
-        <NewOwnerModal
-          isOpen={newOwnerModalOpen}
-          handleCloseNewOwnerModal={handleCloseNewOwnerModal}
-        />
-      ) : null}
-      {editModalOpen ? (
-        <EditOwnerModal
-          isOpen={editModalOpen}
-          handleCloseEditOwnerModal={handleCloseEditOwnerModal}
-        />
-      ) : null}
+      <ModalWrapper />
     </>
   );
 }

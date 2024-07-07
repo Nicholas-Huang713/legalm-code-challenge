@@ -11,13 +11,9 @@ const mockOnClose = vi.fn();
 
 describe("Modal component", () => {
   it("renders Modal", () => {
-    renderModal(true, mockOnClose);
+    const { container } = renderModal(true, mockOnClose);
     expect(screen.getByText("Children")).toBeInTheDocument();
-  });
-
-  it("render Modal with false val", () => {
-    renderModal(false, mockOnClose);
-    expect(screen.queryByText("Children")).not.toBeInTheDocument();
+    expect(container).toMatchSnapshot();
   });
 
   it("close btn calls mockOnClose", () => {

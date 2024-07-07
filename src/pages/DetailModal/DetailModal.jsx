@@ -2,11 +2,11 @@ import Modal from "../../components/Modal/Modal";
 import { useSelector } from "react-redux";
 import "./DetailModal.scss";
 
-export default function DetailModal({ isOpen, handleCloseDetailModal }) {
+export default function DetailModal({ handleCloseDetailModal }) {
   const { dog, owners } = useSelector((state) => state.dog.dogs);
 
   return (
-    <Modal isOpen={isOpen} onClose={handleCloseDetailModal}>
+    <Modal onClose={handleCloseDetailModal}>
       {dog.name && owners.length > 0 ? (
         <div className="modal-content-wrapper">
           <header>

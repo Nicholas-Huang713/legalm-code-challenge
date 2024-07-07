@@ -1,0 +1,27 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Modal component > renders Modal 1`] = `
+<div>
+  <div
+    class="modal-backdrop"
+    data-testid="modal-backdrop"
+  >
+    <div
+      class="modal-content"
+    >
+      <button
+        class="close-btn"
+      >
+        X
+      </button>
+      <section
+        class="modal-content-main"
+      >
+        <div>
+          Children
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+`;

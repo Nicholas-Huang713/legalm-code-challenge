@@ -1,29 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { render, screen } from "@testing-library/react";
-import { Provider } from "react-redux";
-import ownerReducer, { fetchOwners } from "./ownerSlice";
-import dogReducer, { fetchDog } from "../dog/dogSlice";
-import OwnerList from "../../../pages/OwnerList/OwnerList";
-
-const owners = [
-  { id: 1, name: "Alice", exp: 10, dogId: 1 },
-  { id: 2, name: "Bob", exp: 5, dogId: 2 },
-  { id: 3, name: "Jerry", exp: 3, dogId: 3 },
-];
-
-const dogs = {
-  dog: { id: 1, name: "Oscar", food: "apples", ownerId: 1 },
-  owners: [{ id: 1, name: "Alice", exp: 10, dogId: 1 }],
-};
-
-vi.mock("../../../services/api/api", () => ({
-  fetchOwnersFromApi: vi.fn(() => Promise.resolve({ owners })),
-  fetchSingleDogFromApi: vi.fn(() => Promise.resolve({ dogs })),
-}));
+import ownerReducer from "./ownerSlice";
+import { fetchOwners, addOwner, editOwner, deleteOwner } from "./ownerThunks";
+import dogReducer from "../dog/dogSlice";
+import { newOwner } from "../../../test/mocks/mockValues";
+import { expect } from "vitest";
 
 describe("Owner Slice", () => {
   let store;
-
   beforeEach(() => {
     store = configureStore({
       reducer: {
@@ -33,7 +16,7 @@ describe("Owner Slice", () => {
     });
   });
 
-  it("fetchOwners async thunk and reducers work correctly", async () => {
+  it("fetchOwners adds owners to state", async () => {
     await store.dispatch(fetchOwners());
     const state = store.getState();
     expect(state.owner.owners).toHaveLength(3);
@@ -42,14 +25,31 @@ describe("Owner Slice", () => {
     expect(state.owner.error).toBeNull();
   });
 
-  it("renders component with fetched owners", async () => {
+  it("addOwner adds to current state", async () => {
+    await store.dispatch(addOwner(newOwner));
+    const state = store.getState();
+    expect(state.owner.owners).toHaveLength(4);
+  });
+
+  it("editOwner adds to current state", async () => {
     await store.dispatch(fetchOwners());
-    await store.dispatch(fetchDog());
-    render(
-      <Provider store={store}>
-        <OwnerList />
-      </Provider>
+    const state = store.getState();
+    const ownerToEdit = state.owner.owners[0];
+    await store.dispatch(
+      editOwner({ owner: { ...ownerToEdit, name: "McDonald" } })
     );
-    expect(screen.getByText("Alice")).toBeInTheDocument();
+    const updatedStore = store.getState();
+    const edittedName = updatedStore.owner.owners[0].name;
+    expect(edittedName).toEqual("McDonald");
+  });
+
+  it("deleteOwner removes from current state", async () => {
+    await store.dispatch(fetchOwners());
+    const state = store.getState();
+    const ownerIdToEdit = state.owner.owners[0].id;
+    await store.dispatch(deleteOwner(ownerIdToEdit));
+    const updatedStore = store.getState();
+
+    expect(updatedStore.owner.owners).toHaveLength(2);
   });
 });

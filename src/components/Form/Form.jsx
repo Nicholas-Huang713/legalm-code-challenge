@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 import { getRandomDog } from "../../constants/randomDogInfo";
-import { useSelector } from "react-redux";
-
 import "./Form.scss";
 
 const initialFormData = {
@@ -14,13 +12,17 @@ const initialDogData = {
   food: "",
 };
 
-const Form = ({ isEditMode, sendDataToServer, handleCloseForm }) => {
+const Form = ({
+  isEditMode,
+  sendDataToServer,
+  handleCloseForm,
+  currentDogWithOwnerInfo,
+}) => {
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setValErrors] = useState({});
   const [ownedDog, setOwnedDog] = useState(initialDogData);
   const [randomDog, setRandomDog] = useState(initialDogData);
   const [apiError, setApiError] = useState(null);
-  const currentDogWithOwnerInfo = useSelector((state) => state.dog.dogs);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -59,7 +61,6 @@ const Form = ({ isEditMode, sendDataToServer, handleCloseForm }) => {
         dog: isEditMode ? ownedDog : randomDog,
         owner: formData,
       };
-      console.log(dataToSend);
       try {
         await sendDataToServer(dataToSend);
         resetInitialInputs();

@@ -7,8 +7,9 @@ const renderButton = () =>
 
 describe("Button component", () => {
   it("renders button component", () => {
-    renderButton();
-    expect(screen.getByText("Hello")).toBeInTheDocument();
+    const { container, getByText } = renderButton();
+    expect(getByText("Hello")).toBeInTheDocument();
+    expect(container).toMatchSnapshot();
   });
 
   it("onClick method called", () => {
