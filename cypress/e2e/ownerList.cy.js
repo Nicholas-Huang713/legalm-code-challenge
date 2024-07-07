@@ -7,6 +7,13 @@ describe('OwnerList', () => {
         cy.get('button').contains('Adopt').click();
         cy.contains('Adopt a Dog').should('be.visible');
         cy.get('form').within(() => {
+            cy.get('#name').clear();
+            cy.get('#exp').clear();
+            cy.get('button').contains('Submit').click();
+        });
+        cy.contains('Name is required').should('be.visible');
+        cy.contains("Experience is required").should('be.visible');
+        cy.get('form').within(() => {
             cy.get('#name').clear().type('Nick');
             cy.get('#exp').clear().type(5);
             cy.get('button').contains('Submit').click();
@@ -31,7 +38,15 @@ describe('OwnerList', () => {
         cy.get('button').contains('Edit').click();
         cy.contains('Edit Profile').should('be.visible');
         cy.get('form').within(() => {
-            cy.get('#name').clear().type('Nick');
+            cy.get('#name').clear();
+            cy.get('#exp').clear();
+            cy.get('button').contains('Submit').click();
+        });
+        cy.contains('Name is required').should('be.visible');
+        cy.contains("Experience is required").should('be.visible');
+        cy.get('form').within(() => {
+            cy.get('#name').type('Nick');
+            cy.get('#exp').type(5)
             cy.get('button').contains('Submit').click();
         });
         cy.contains('Alice').should('not.exist');
