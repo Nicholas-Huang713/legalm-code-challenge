@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: Button/Button.jsx</title>
+    <title>JSDoc: Source: Modal/Modal.jsx</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: Button/Button.jsx</h1>
+    <h1 class="page-title">Source: Modal/Modal.jsx</h1>
 
     
 
@@ -26,22 +26,34 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @module Button
- * @description A simple Button component that handles action when clicked.
- * @param {object} props - The component props.
- * @param {string} props.btnText - Text to display in button.
- * @param {function} props.handleClick - Function to be called with button is clicked.
- * @param {string} props.value - Value of button.
+            <pre class="prettyprint source linenums"><code>import "./Modal.scss";
+
+/**
+ * @module Modal
+ * @description List component for displaying list of current owners. It can be switched from create mode to edit mode using "isEditMode" prop. Set this value to true to edit items.
+ *
+ * @param {function} props.onClose - onClose function to handle closeing modal
+ * @param {object} props.children - children components withint Modal container
  */
 
-export default function Button({ btnText, handleClick, value }) {
+const Modal = ({ onClose, children }) => {
   return (
-    &lt;button value={value ? value : null} onClick={handleClick}>
-      {btnText}
-    &lt;/button>
+    &lt;div
+      className="modal-backdrop"
+      onClick={onClose}
+      data-testid="modal-backdrop"
+    >
+      &lt;div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        &lt;button className="close-btn" onClick={onClose}>
+          X
+        &lt;/button>
+        &lt;section className="modal-content-main">{children}&lt;/section>
+      &lt;/div>
+    &lt;/div>
   );
-}
+};
+
+export default Modal;
 </code></pre>
         </article>
     </section>

@@ -1,14 +1,14 @@
-const optionsArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
 import { useState, useEffect } from "react";
 
 /**
+ * @module FilterButton
+ * @description Filter component for displaying interactive buttons.
  * Filter component for displaying interactive buttons.
- *
- * @component
+ * @param {function} props.setFilter - filter function to be called when new option selected.
  */
 
 export default function FilterButton({ setFilter }) {
+  const optionsArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const [selectedOption, setSelectedOption] = useState(0);
 
   const renderOptions = () => {
