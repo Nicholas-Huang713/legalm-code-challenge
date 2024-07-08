@@ -8,9 +8,7 @@ This project is a React application created with Vite and integrated with Mirage
 - [Usage](#usage)
 - [Features](#features)
 - [Testing](#testing)
-- [Folder Structure](#folder-structure)
-- [Contributing](#contributing)
-- [License](#license)
+
 
 ## Installation
 
