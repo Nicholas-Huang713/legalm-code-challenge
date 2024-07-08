@@ -36,7 +36,7 @@ export const deleteOwnerInApi = async (ownerId) => {
         headers: { "Content-Type": "application/json" }
     });
     if (!response.ok) {
-        throw new Error("Failed to delete dog");
+        throw new Error("Failed to delete owner");
     }
     return response.json();
 };
