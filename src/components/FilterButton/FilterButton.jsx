@@ -1,5 +1,12 @@
-import { useState, useEffect } from "react";
 const optionsArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+import { useState, useEffect } from "react";
+
+/**
+ * Filter component for displaying interactive buttons.
+ *
+ * @component
+ */
 
 export default function FilterButton({ setFilter }) {
   const [selectedOption, setSelectedOption] = useState(0);

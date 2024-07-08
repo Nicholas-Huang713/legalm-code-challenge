@@ -17,11 +17,6 @@ describe("Redux Store Configuration", () => {
     store.dispatch = vi.fn();
   });
 
-  //   it("should configure Redux store correctly", () => {
-  //     const initialState = store.getState();
-  //     expect(initialState).toEqual({});
-  //   });
-
   it("should handle action correctly", () => {
     const action = { type: "owners/fetchOwners", payload: {} };
     store.dispatch(action);

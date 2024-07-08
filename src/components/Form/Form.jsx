@@ -12,6 +12,12 @@ const initialDogData = {
   food: "",
 };
 
+/**
+ * Filter component for displaying interactive buttons.
+ *
+ * @component
+ */
+
 const Form = ({
   isEditMode,
   sendDataToServer,
